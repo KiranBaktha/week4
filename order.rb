@@ -45,12 +45,23 @@ private
   def calcshiptot
     @shipping_charge = 10
 
-    if (@subtotal > 100.00 || @customer[:state] == 'IL')
-      if !(@line_items.detect { |item| item.sku == '123' })
+    if (@subtotal > 100.00 || @customer[:state] == 'IL')   # If subtotal greater than 100 or state is IL
+      if !(@line_items.detect { |item| item.sku == '123' })  # If a particular item is not present
         @shipping_charge = 0
       end
     end
+    
+    
+    # I remove the above lines gtom 48 to 52 and put a new method
+    def apply_free_shippling_rule
+      if (@subtotal > 100.00 || @customer[:state] == 'IL')   # If subtotal greater than 100 or state is IL
+        if !(@line_items.detect { |item| item.sku == '123' })  # If a particular item is not present
+          @shipping_charge = 0
+        end
+      end
+    end
 
+# An if statement at the top of a function to check for a test cause is called gaurd clause.   
     return @shipping_charge
 
   end
